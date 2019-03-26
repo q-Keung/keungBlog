@@ -1,19 +1,17 @@
 {
   "pages": [
-    "pages/login",
-    "pages/details",
-    "pages/counter",
-    "pages/home",
     "pages/index",
+    "pages/home",
+    "pages/details",
+    "pages/login",
+    "pages/specialView",
+    "pages/counter",
     "pages/editMessage",
     {
-      "path": "packageA/logs",
+      "path": "package/services",
       "subPackage": true
     }
   ],
-  "usingComponents": {
-      
-  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

@@ -9,7 +9,10 @@ Vue.use(MpvueRouterPatch)
 Vue.config.productionTip = false
 
 //在用户管理中会显示使用云能力的小程序的访问用户列表，默认以访问时间倒叙排列，访问时间的触发点是在小程序端调用 wx.cloud.init 方法，且其中的 traceUser 参数传值为 true。
-
+wx.cloud.init({
+  env: 'keung-1f46cf',
+  traceUser: true
+})
 Vue.prototype.$http = fly
 // Vue.prototype.$ajax = https
 const app = new Vue({

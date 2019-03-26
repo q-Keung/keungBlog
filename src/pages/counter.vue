@@ -36,7 +36,8 @@
     imgUrl
   } from '../utils/config'
   import infoPanel from '../components/infoPanel'
-  import $ajax from '../utils/https'
+  import Https from '../utils/https'
+  const $https = new Https();
   export default {
     config: {
       navigationBarTitleText: '我的'
@@ -45,9 +46,10 @@
       infoPanel
     },
     onLoad() {
-      console.log($ajax);
-      $ajax('userInfo').then(res => {
-        this.infoData = res.data[0];
+      $https.$Get({
+        url:'userInfo'
+      }).then(res=>{
+        this.infoData = res[0];
         console.log(res)
       })
     },
