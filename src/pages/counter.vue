@@ -76,9 +76,11 @@
         isBorder: false,
         infoData: {},
         imgHost: imgUrl,
+
+        //首次评分
+        firstRate: false, //是不是第一次评分
         rateVal: this.$store.getters.getRateVal || wx.getStorageSync('rate'),
         isRate: wx.getStorageSync('isRate') || false,
-        firstRate: true, //是不是第一次评分
       }
     },
     computed: {
@@ -99,12 +101,13 @@
       stopRate() {
         let _text = '小可爱您已经评过分了哟~';
         if(this.firstRate){
-          this.firstRate = false;
+          //第一次进来   第一次点击
+          return;
         }
-        if (wx.getStorageSync('firstRate')) {
+        if(wx.getStorageSync('isRate')){
           rateFn(_text);
           return;
-        } 
+        }
       },
       onChange(e) {
         let _text = '谢谢小可爱的评分哦~',
@@ -112,6 +115,8 @@
         if (rateV) {
           rateFn(_text);
           this.rateVal = rateV;
+          this.firstRate = true;
+
           this.$store.commit('setRate', rateV);
           wx.setStorageSync('rate', rateV);
           wx.setStorageSync('isRate', true)
