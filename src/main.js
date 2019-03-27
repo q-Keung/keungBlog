@@ -4,7 +4,7 @@ import App from '@/App'
 import store from '@/store'
 import request from './utils/ajax'
 import fly from './utils/fly'
-import https from './utils/https'
+import Https from './utils/https'
 Vue.use(MpvueRouterPatch)
 Vue.config.productionTip = false
 
@@ -13,8 +13,8 @@ wx.cloud.init({
   env: 'keung-1f46cf',
   traceUser: true
 })
-Vue.prototype.$http = fly
-// Vue.prototype.$ajax = https
+Vue.prototype.$http = fly;
+Vue.prototype.$ajax = new Https();
 const app = new Vue({
   mpType: 'app',
   store,
@@ -34,3 +34,4 @@ Vue.prototype.$post = () => {
     request(url,'POST',data,resolve,reject,getApp().globalData)
   })
 };
+

@@ -45,11 +45,15 @@
               </scroll-view>
             </div>
           </van-tab>
-          <van-tab title="Javascript">
-            <div class="tab-dl"></div>
+          <van-tab title="CSS合集">
+            <div class="tab-dl">
+              <van-cell title="css滤镜效果" is-link clickable center url="./cssFiles/cssFilter" />
+            </div>
           </van-tab>
-          <van-tab title="Vue">Vue</van-tab>
-          <van-tab title="React">React</van-tab>
+          <van-tab title="mpvue组件示例">
+            <van-cell title="flyio" is-link clickable center url="./mpComponents/flyio" />
+          </van-tab>
+          <!-- <van-tab title="React">React</van-tab> -->
         </van-tabs>
       </div>
     </div>
@@ -61,10 +65,7 @@
   import {
     imgUrl
   } from '../utils/config'
-  import Https from '../utils/https'
   import Toast from 'vant-weapp/dist/toast/toast'
-  const $https = new Https();
-  // import {toPage} from '../utils/utils'
   let swiperImg = () => {
     let swiperArr = [];
     for (let i = 0; i < 4; i++) {
@@ -80,14 +81,14 @@
       usingComponents: {}
     },
     onLoad(options) {
-      $https.$Get({
+      this.$ajax.$Get({
         url:'getScrollData'
       }).then(res=>{
         console.log(res)
         this.scrollData = res;
         this.isloading = true;
       })
-      $https.$Get({
+      this.$ajax.$Get({
         url: 'indexData'
       }).then(res => {
         this.sImgs = res;
@@ -150,7 +151,7 @@
   .search-box {
     width: 100%; // background:-webkit-linear-gradient(left right,rgb(30, 253, 142),rgb(37, 182, 240));
     // background: linear-gradient(to left right,rgb(30, 253, 142),rgb(37, 182, 240));
-    background: #1989fa;
+    background: #f7f2ec;
 
     ._van-search {
       width: 100%;
@@ -158,7 +159,7 @@
   }
 
   .cancel-class {
-    color: white;
+    color:#8b8888;
   }
 
   .swiper-box {

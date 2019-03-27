@@ -8,15 +8,13 @@
     </div>
     <nodata v-if="isNoData"></nodata>
     <!-- v-for="(item,cur) in detailsData" :key="cur" -->
-    <rate-bottom :rateVal="$store.getters.getRateVal"></rate-bottom>
+    <!-- <rate-bottom :rateVal="rateVal" :rateId="rateId"></rate-bottom> -->
   </div>
 </template>
 
 <script>
   import rateBottom from '../components/rateBottom'
   import nodata from '../components/nodata'
-  import Https from '../utils/https'
-  const $https = new Https();
   export default {
     components: {
       rateBottom,
@@ -27,7 +25,7 @@
     },
     onLoad(options) {
       if (options.to) {
-        $https.$Where({
+        this.$ajax.$Where({
           url: 'getDetails',
           data: {
             link: options.to
@@ -35,16 +33,23 @@
           loading: true
         }).then(res => {
           this.detailsData = res[0].details;
-          console.log(this.detailsData)
+          this.rateVal = res[0].rateVal;
+          this.rateId = res[0]._id;
+          console.log(res)
         })
       } else {
         this.isNoData = true;
       }
     },
+    onUnload(){
+      this.detailsData = [];
+    },
     data() {
       return {
         detailsData: [],
-        isNoData: null
+        isNoData: null,
+        rateVal:0,
+        rateId:''
       }
     },
     methods: {
@@ -56,7 +61,7 @@
 
 <style lang="scss">
   .de-padding {
-    padding-bottom: 80rpx;
+    padding-bottom: 20rpx;
   }
 
   .de-content {

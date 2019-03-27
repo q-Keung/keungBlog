@@ -20,7 +20,9 @@
         "van-field": "vant-weapp/dist/field/index",
         "van-cell": "vant-weapp/dist/cell/index",
         "van-cell-group": "vant-weapp/dist/cell-group/index",
-        "van-transition": "vant-weapp/dist/transition/index"
+        "van-transition": "vant-weapp/dist/transition/index",
+        "van-collapse": "vant-weapp/dist/collapse/index",
+        "van-collapse-item": "vant-weapp/dist/collapse-item/index"
       },
     },
     created() {},
@@ -66,7 +68,7 @@
   .flex-center {
     display: flex;
     align-items: center;
-    justify-content: flex;
+    justify-content: center;
   }
 
   .flex-column {
@@ -93,12 +95,11 @@
 
   /*多行文字超出省略号*/
   .s-ellipsis {
-    display: -webkit-box;
+    overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    /*超出两行则显示省略*/
-    overflow: hidden;
   }
 
   .m-ellipsis {
@@ -108,18 +109,22 @@
     -webkit-line-clamp: 7;
     overflow: hidden;
   }
+
   /*多行文字超出省略号*/
 
   /**全局滚动条隐藏**/
   ::-webkit-scrollbar {
     display: none;
   }
+
   /*文字两边对齐*/
-  .justify{
+  .justify {
     text-align: justify;
   }
-  .justify::after{
-    display:inline-block;
-    width:1005；
+
+  .justify::after {
+    display: inline-block;
+    width: 1005；
   }
+
 </style>

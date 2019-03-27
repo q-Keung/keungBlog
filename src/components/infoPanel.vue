@@ -10,11 +10,13 @@
     </div>
     <div class="shadow-border info-works">
       <div class="works-box flex-column">
-        <van-tag size="large" color="#1989fa" data-weburl="http://zkeung.top" text-color="#fff" @click="copyUrl">漫威后台管理系统</van-tag>
+        <van-tag size="large" color="#1989fa" data-weburl="http://zkeung.top" text-color="#fff" @click="copyUrl">
+          漫威后台管理系统</van-tag>
         <span>http://zkeung.top</span>
       </div>
       <div class="works-box flex-column">
-        <van-tag size="large" color="#1989fa" data-weburl="http://ustbhuangyi.com/sell/#/goods" text-color="#fff" @click="copyUrl">门店售卖系统</van-tag>
+        <van-tag size="large" color="#1989fa" data-weburl="http://ustbhuangyi.com/sell/#/goods" text-color="#fff"
+          @click="copyUrl">门店售卖系统</van-tag>
         <span>http://ustbhuangyi.com/sell/#/goods</span>
       </div>
     </div>
@@ -24,10 +26,6 @@
       <div class="before-tips">
         tips:点击标题可复制地址哦！
       </div>
-      <div class="before-rate">
-        <span>看完了别忘了点个赞哦！</span>
-        <van-rate :value="rateValue" size="20" count="6" color="#1989fa" void-color="#b4d4f5" @change="onChange" />
-      </div>
     </div>
   </div>
 </template>
@@ -35,30 +33,26 @@
 <script>
   export default {
     name: 'infoPanel',
-    props: ['infoData'],
+    props: ['infoData', ''],
     data() {
-      return {
-        rateValue: ''
-      }
+      return {}
     },
     methods: {
-        copyUrl(e){
-            console.log(e);
-            let dt = e.currentTarget.dataset.weburl;
-            wx.setClipboardData({
-              data: dt, //需要设置的内容,
+      copyUrl(e) {
+        console.log(e);
+        let dt = e.currentTarget.dataset.weburl;
+        wx.setClipboardData({
+          data: dt, //需要设置的内容,
+          success: res => {
+            wx.getClipboardData({
               success: res => {
-                  wx.getClipboardData({ success: res => {
-                      console.log(res);
-                  } });
+                console.log(res);
               }
             });
-        },
-      onChange(e) {
-        console.log(e)
-        let dt = e.mp.detail;
+          }
+        });
+      },
 
-      }
     }
   }
 
@@ -83,7 +77,8 @@
       padding: 15rpx;
       word-wrap: wrap;
       font-size: 28rpx;
-        // color:#b4d4f5;
+
+      // color:#b4d4f5;
       .van-tag {
         margin: 0;
       }
@@ -116,14 +111,7 @@
         margin-bottom: 10rpx;
       }
 
-      .before-rate {
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-        span {
-          font-size: 24rpx;
-        }
-      }
+
 
     }
   }

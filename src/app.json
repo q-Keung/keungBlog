@@ -1,10 +1,13 @@
 {
   "pages": [
-    "pages/index",
     "pages/home",
+    "pages/cssFiles/cssFilter",
+    "pages/mpComponents/flyio",
+    "pages/index",
     "pages/details",
     "pages/login",
     "pages/specialView",
+    "pages/reactView",
     "pages/counter",
     "pages/editMessage",
     {

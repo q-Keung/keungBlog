@@ -1,7 +1,8 @@
 const imgUrl = 'http://pnrykw6xt.bkt.clouddn.com/keung/';
-
+const imgSrc = 'http://poregvooj.bkt.clouddn.com/keung/';
 export {
-  imgUrl
+  imgUrl,
+  imgSrc
 }
 
 
@@ -9,6 +10,7 @@ export {
 //   if (num <= 1) {
 //     return 1;
 //   } else {
+//     //callee => 指向自身
 //     console.log(arguments.callee);
 //     return num + sum(num - 1);
 //   }

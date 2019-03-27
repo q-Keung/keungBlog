@@ -18,7 +18,7 @@
         </scroll-view>
       </div>
     </div>
-    <van-popup :show="isPopupShow" overlay position="top" @close="onClose">
+    <van-popup :show="isPopupShow" custom-style="background:rgb(80, 77, 77);color:white;font-size:30rpx;height:100rpx;line-height:100rpx;text-align:center;" position="top" @close="onClose">
       暂无数据
     </van-popup>
   </div>
@@ -29,8 +29,6 @@
   import {
     imgUrl
   } from '../utils/config'
-  import Https from '../utils/https'
-  const $https = new Https();
   export default {
     mpType: 'page',
     config: {
@@ -47,7 +45,7 @@
     },
     onLoad() {
 
-      $https.$Get({
+      this.$ajax.$Get({
         url: 'getSpecialData',
         loading: true
       }).then(res => {
@@ -68,12 +66,16 @@
         this.isPopupShow = false;
       },
       toDetails(link) {
-        if (link == 's2' || link.includes('s3')) {
+        let path = './specialView';
+        if (link == 's2') {
+          path = './reactView';
+        }
+        if(link.includes('s3')) {
           this.isPopupShow = true;
           return;
         }
         this.$router.push({
-          path: './specialView',
+          path,
           query: {
             to: link
           }
@@ -136,7 +138,7 @@
         // }
         image {
           width: 100%;
-          height: 300rpx;
+          height: 340rpx;
           margin-bottom: 10rpx;
           border-radius: 10rpx;
         }

@@ -21,9 +21,17 @@
           <!-- <van-cell :title="infoData.status" :center="isCenter" title-width="80px" :value="infoData.abstract" :border="isBorder" /> -->
           <!-- </van-cell-group> -->
           <infoPanel :infoData.sync="infoData"></infoPanel>
+
+          <div class="before-rate">
+            <span>看完了别忘了点个赞哦！</span>
+            <van-rate :value="rateVal" :readonly="isRate" size="20" count="6" color="#1989fa" void-color="#b4d4f5"
+              @change="onChange" @click="stopRate" />
+          </div>
         </div>
       </div>
     </div>
+
+    <van-notify id="custom-selector" />
   </div>
 </template>
 
@@ -36,8 +44,17 @@
     imgUrl
   } from '../utils/config'
   import infoPanel from '../components/infoPanel'
-  import Https from '../utils/https'
-  const $https = new Https();
+
+  function rateFn(text) {
+    Notify({
+      text,
+      duration: 1000,
+      selector: '#custom-selector',
+      backgroundColor: '#1989fa'
+    });
+  }
+
+  import Notify from 'vant-weapp/dist/notify/notify';
   export default {
     config: {
       navigationBarTitleText: '我的'
@@ -46,9 +63,9 @@
       infoPanel
     },
     onLoad() {
-      $https.$Get({
-        url:'userInfo'
-      }).then(res=>{
+      this.$ajax.$Get({
+        url: 'userInfo'
+      }).then(res => {
         this.infoData = res[0];
         console.log(res)
       })
@@ -58,7 +75,10 @@
         isCenter: true,
         isBorder: false,
         infoData: {},
-        imgHost: imgUrl
+        imgHost: imgUrl,
+        rateVal: this.$store.getters.getRateVal || wx.getStorageSync('rate'),
+        isRate: wx.getStorageSync('isRate') || false,
+        firstRate: true, //是不是第一次评分
       }
     },
     computed: {
@@ -75,6 +95,27 @@
             data: 1
           }
         })
+      },
+      stopRate() {
+        let _text = '小可爱您已经评过分了哟~';
+        if(this.firstRate){
+          this.firstRate = false;
+        }
+        if (wx.getStorageSync('firstRate')) {
+          rateFn(_text);
+          return;
+        } 
+      },
+      onChange(e) {
+        let _text = '谢谢小可爱的评分哦~',
+          rateV = e.mp.detail;
+        if (rateV) {
+          rateFn(_text);
+          this.rateVal = rateV;
+          this.$store.commit('setRate', rateV);
+          wx.setStorageSync('rate', rateV);
+          wx.setStorageSync('isRate', true)
+        }
       },
       ...mapMutations([
         'increment',
@@ -127,6 +168,16 @@
       .van-tag {
         margin-left: 10rpx;
       }
+    }
+  }
+
+  .before-rate {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    span {
+      font-size: 24rpx;
     }
   }
 

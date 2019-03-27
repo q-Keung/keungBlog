@@ -24,6 +24,9 @@
       rateVal: {
         type: Number,
         defalut: 0
+      },
+      rateId:{
+        type:String
       }
     },
     data() {
@@ -43,14 +46,27 @@
         }
       },
       onChange(rate) {
-        console.log(rate)
+        console.log(this.rateId)
         let _text = '谢谢小可爱的评分哦~',
           rateV = rate.mp.detail;
         if (rateV) {
-          rateFn(_text);
-          this.isRate = true;
-          this.rateVal = rateV;
-          this.$store.commit('setRate', rateV);
+          this.$ajax.$Set({
+            url: 'getDetails',
+            id:this.rateId,
+            data: {
+              rateVal:rateV
+            }
+          }).then(res => {
+            console.log(res);
+            rateFn(_text);
+            this.isRate = true;
+            this.rateVal = rateV;
+            // this.$store.commit('setRate', rateV);
+          }).catch(err => {
+            console.log(err);
+            _text = "网络离家出走啦~"
+            rateFn(_text);
+          })
         }
       }
     },
@@ -71,7 +87,8 @@
     align-items: center;
     font-size: 28rpx;
     border-top: 1rpx solid rgb(236, 233, 233);
-    background:white;
+    background: white;
+
     .van-rate {
       line-height: 1;
       padding-top: 2rpx;

@@ -3,13 +3,14 @@ wx.cloud.init({
   traceUser: true
 })
 const db = wx.cloud.database();
+const _ = db.command;
 class Https {
   constructor() {
     // this.context = db.collection(url);
   }
   $Get(opt) {
     if (opt.loading) wx.showLoading({
-      itle: 'Loading...',
+      title: 'Loading...',
       mask: true,
     });
     return new Promise((resolve, reject) => {
@@ -49,9 +50,32 @@ class Https {
       })
     })
   }
+  $Set(opt){
+    if (opt.loading) wx.showLoading({
+      title: '请稍后~',
+      mask: true,
+    });
+    if(!opt.id) return;
+    return new Promise((resolve,reject)=>{
+      db.collection(opt.url).doc(opt.id).set({
+        // data 传入需要局部更新的数据
+        data:opt.data,
+        success(res) {
+          resolve(res.data);
+          wx.hideLoading();
+          // console.log(res.data)
+        },
+        fail(err){
+          reject(err);
+          console.error;
+          wx.hideLoading();
+        }
+      })
+    })
+  }
   $Where(opt) {
     if (opt.loading) wx.showLoading({
-      itle: 'Loading...',
+      title: 'Loading...',
       mask: true,
     });
     return new Promise((resolve,reject)=>{
