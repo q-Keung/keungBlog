@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div style="margin-top:100rpx;">
+    <div class="info-panel-margin">
       <div class="info-panel">
         <div class="info-content">
           <!-- <van-cell-group> -->
@@ -24,8 +24,8 @@
 
           <div class="before-rate">
             <span>看完了别忘了点个赞哦！</span>
-            <van-rate :value="rateVal" :readonly="isRate" size="20" count="6" color="#1989fa" void-color="#b4d4f5"
-              @change="onChange" @click="stopRate" />
+            <van-rate id="rate" :value="rateVal" :readonly="isRate" size="20" count="6" color="#1989fa" void-color="#b4d4f5"
+              @change="onChange" />
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
     imgUrl
   } from '../utils/config'
   import infoPanel from '../components/infoPanel'
-
+  const rateDom = wx.createSelectorQuery();
   function rateFn(text) {
     Notify({
       text,
@@ -77,10 +77,8 @@
         infoData: {},
         imgHost: imgUrl,
 
-        //首次评分
-        firstRate: false, //是不是第一次评分
-        rateVal: this.$store.getters.getRateVal || wx.getStorageSync('rate'),
-        isRate: wx.getStorageSync('isRate') || false,
+        rateVal: this.$store.getters.getRateVal || wx.getStorageSync('rate'),   //评分值
+        isRate:  wx.getStorageSync('rate') && true || false,    //只读状态
       }
     },
     computed: {
@@ -98,28 +96,14 @@
           }
         })
       },
-      stopRate() {
-        let _text = '小可爱您已经评过分了哟~';
-        if(this.firstRate){
-          //第一次进来   第一次点击
-          return;
-        }
-        if(wx.getStorageSync('isRate')){
-          rateFn(_text);
-          return;
-        }
-      },
       onChange(e) {
         let _text = '谢谢小可爱的评分哦~',
           rateV = e.mp.detail;
         if (rateV) {
           rateFn(_text);
-          this.rateVal = rateV;
-          this.firstRate = true;
-
-          this.$store.commit('setRate', rateV);
-          wx.setStorageSync('rate', rateV);
-          wx.setStorageSync('isRate', true)
+          this.isRate = true;
+          this.$store.commit('setRate', rateV); //小程序未重载时的评分值
+          wx.setStorageSync('rate', rateV);   //评分值
         }
       },
       ...mapMutations([
@@ -175,12 +159,14 @@
       }
     }
   }
-
+  .info-panel-margin{
+    margin-top:100rpx;
+  }
   .before-rate {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
+    padding-bottom: 30rpx;
     span {
       font-size: 24rpx;
     }

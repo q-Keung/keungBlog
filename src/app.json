@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/login",
     "pages/home",
     "pages/cssFiles/cssFilter",
+    "pages/cssFiles/fontFade",
     "pages/mpComponents/flyio",
     "pages/index",
     "pages/details",
-    "pages/login",
     "pages/specialView",
     "pages/reactView",
     "pages/counter",

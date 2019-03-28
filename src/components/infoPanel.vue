@@ -2,13 +2,13 @@
   <div class="info-panel flex-column">
     <!-- <van-transition name="fade-up" v-show="isShow"> -->
     <van-tag size="large" color="#1989fa" text-color="#fff">{{infoData.status}}</van-tag>
-    <div class="info-avatar info-mes shadow-border">
+    <div class="info-avatar info-mes">
       {{infoData.abstract}}
     </div>
-    <div class="info-avatar info-mes shadow-border">
+    <div class="info-avatar info-mes">
       作品集：
     </div>
-    <div class="shadow-border info-works">
+    <div class="info-works">
       <div class="works-box flex-column">
         <van-tag size="large" color="#1989fa" data-weburl="http://zkeung.top" text-color="#fff" @click="copyUrl">
           漫威后台管理系统</van-tag>
@@ -65,7 +65,6 @@
     }
 
     .info-mes {
-      padding: 0 15rpx;
       min-height: 70rpx;
       line-height: 70rpx;
       font-size: 28rpx;
@@ -74,7 +73,8 @@
     }
 
     .info-works {
-      padding: 15rpx;
+      width:100%;
+      // padding: 15rpx;
       word-wrap: wrap;
       font-size: 28rpx;
 
@@ -87,7 +87,10 @@
         line-height: 1;
       }
     }
-
+    .works-box,.info-avatar{
+      border:1rpx solid rgb(241, 234, 234);
+      width:100%;padding:20rpx 0;
+    }
     .works-box {
       margin-bottom: 15rpx;
 
@@ -95,8 +98,6 @@
         margin-bottom: 10rpx;
       }
     }
-
-    .info-avatar {}
 
     .before-content {
       width: 100%;

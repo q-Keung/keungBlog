@@ -47,7 +47,7 @@
     data() {
       return {
         detailsData: [],
-        isNoData: null,
+        isNoData: false,
         rateVal:0,
         rateId:''
       }

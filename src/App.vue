@@ -22,7 +22,11 @@
         "van-cell-group": "vant-weapp/dist/cell-group/index",
         "van-transition": "vant-weapp/dist/transition/index",
         "van-collapse": "vant-weapp/dist/collapse/index",
-        "van-collapse-item": "vant-weapp/dist/collapse-item/index"
+        "van-collapse-item": "vant-weapp/dist/collapse-item/index",
+        "van-tabbar": "vant-weapp/dist/tabbar/index",
+        "van-tabbar-item": "vant-weapp/dist/tabbar-item/index",
+        "van-slider": "vant-weapp/dist/slider/index",
+        "van-stepper": "vant-weapp/dist/stepper/index"
       },
     },
     created() {},
